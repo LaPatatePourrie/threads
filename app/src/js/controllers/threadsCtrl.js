@@ -50,6 +50,7 @@ define(['backbone', 'api', 'utils-form'], function(Backbone, api, Form) {
 
 
 		function displayOneThread (idThread) {
+			Backbone.Relational.store.reset()
 			$scope.thread = Thread.findOrCreate({id: idThread});
 			console.log($scope.thread)
 
@@ -65,6 +66,7 @@ define(['backbone', 'api', 'utils-form'], function(Backbone, api, Form) {
 		}
 
 		function displayThreads () {
+			Backbone.Relational.store.reset()
 			$scope.threads = new Threads();
 			
 			$scope.threads.fetch({
@@ -92,19 +94,6 @@ define(['backbone', 'api', 'utils-form'], function(Backbone, api, Form) {
 					success: function (res) {
 						$scope.action = ''
 						displayThreads()
-
-						// Save first thread message
-						var values = form.toJSON()
-						values.idThread = res.get('id')
-
-						var message = new Message(values)
-						message.url = api.url().postMessage
-						message.save('', '', {
-							success: function (message) {
-								message.set('author', Author.findOrCreate({id: message.get('idAuthor')}))
-								$scope.threads.get(values.idThread).get('messages').add(message)
-							}
-						})
 					},
 					error: function (res) { console.log(err) }
 				})

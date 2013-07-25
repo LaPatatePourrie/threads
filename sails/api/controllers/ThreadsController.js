@@ -1,5 +1,3 @@
-var authKeys = ['title']
-
 var ThreadsController = {
 
 	threads: function (req,res) {
@@ -16,7 +14,12 @@ var ThreadsController = {
 						var funcs = []
 						_(threads).each(function (thread) {
 							funcs.push(function (callback) {
+								// Message count & Last author
 								Message.find({idThread: thread.id}).done(function (err, messages) {
+									if (!messages || messages.length==0) {
+										callback(err)
+										return
+									}
 									thread.messageCount = messages.length
 									thread.lastAuthorId = messages[messages.length-1].idAuthor
 
@@ -88,6 +91,7 @@ var ThreadsController = {
 				}
 			], 
 			function (err, thread) {
+				console.log(thread)
 				if (err) 	res.end('No thread')
 				else			res.end(JSON.stringify(thread))
 			}
@@ -95,11 +99,21 @@ var ThreadsController = {
 	},
 
 	insert: function(req, res) {
-		var values = filter.keys(req.body, authKeys)
+		var values = filter.keys(req.body, _(Thread.attributes).keys())
 		values.idAuthor = 1
 
+			console.log('Create thread')
 		Thread.create(values).done(function (err, thread) {
-			res.end(JSON.stringify(thread))
+			var values = filter.keys(req.body, _(Message.attributes).keys())
+			values.idThread = thread.id
+			values.idAuthor = 14
+
+			console.log('Create message')
+			console.log(values)
+			Message.create(values).done(function (err, message) {
+				thread.messages = [message]
+				res.end(JSON.stringify(thread))
+			})
 		})
 	},
 

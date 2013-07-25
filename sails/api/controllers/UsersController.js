@@ -19,15 +19,12 @@ var UsersController = {
 				// var session = new Session(req)
 				// session.setUser(user)
 				req.session.user = user
-				req.session.setuser = 'ok'
-				console.log(req.session.user)
 				res.end(JSON.stringify({auth:true}))
 			}
 		})
 	},
 	
-	users: function (req,res) { 
-		req.session.setuser = 'hehe'
+	users: function (req,res) {
 		User.find().done(function (err, users) {
 			res.end(JSON.stringify(users))
 		})

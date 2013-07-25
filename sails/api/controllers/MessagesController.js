@@ -9,13 +9,13 @@ var MessagesController = {
 		Message.update({
 			id: values.id
 		}, 
-		filter.keys(values, authKeys), function(err, message) {
+		filter.keys(values, _(Message.attributes).keys()), function(err, message) {
 		  res.end(JSON.stringify(message))
 		});
 	},
 
 	insert: function(req, res) {
-		var values = filter.keys(req.body, authKeys)
+		var values = filter.keys(req.body, _(Message.attributes).keys())
 		values.idAuthor = 1
 
 		Message.create(values).done(function (err, message) {

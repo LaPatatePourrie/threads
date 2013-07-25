@@ -2,7 +2,7 @@ module.exports = function (req) {
 	var session = req.session
 	if (!session) session = {}
 
-	var defaultUserStatus = 4
+	var defaultUserStatus = 3
 	var defaultActionStatus = 5
 
 	return {
