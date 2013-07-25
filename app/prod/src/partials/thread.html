@@ -1,0 +1,22 @@
+<h3>{{thread.get('title')}}</h3>
+
+<button ng-click="postMessage()">R&eacute;pondre</button>
+
+<fields form="message" ng-show="thread.get('status')=='postingMessage'"></fields>
+
+<div class="messages">
+	<div class="message" ng-repeat="message in thread.get('messages').models">
+		<h4>
+			<a href="#/authors/{{message.get('author').get('id')}}">{{message.get('author').get('login')}}</a>
+			<button ng-click="updateMessage(message.get('id'))">Update</button>
+			<button ng-click="deleteMessage(message.get('id'))" ng-show="$index>0">Delete</button>
+		</h4>
+
+		<div class="content">
+			{{message.get('content')}}
+		</div>
+
+		<fields form="message" ng-show="message.get('status')=='updating'"></fields>
+		
+	</div>
+</div>

@@ -1,0 +1,1 @@
+module.exports=function(e){e.initConfig({concat:{options:{separator:";"},dist:{src:["src/js/*.js"],dest:"src/concat/save.js"}}}),e.loadNpmTasks("grunt-contrib-concat"),e.registerTask("default",["concat"])};

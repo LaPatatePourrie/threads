@@ -1,0 +1,36 @@
+<div class="form" data-status="{{form.feedback.status}}">
+	<div 
+		class="field" 
+		ng-repeat="field in form.fields.order" 
+		data-status="{{form.fields.data[field].getStatus()}}"
+	>
+		<div class="label">{{form.fields.data[field].label}}</div>
+		<div class="input-wrapper" ng-switch on="form.fields.data[field].type">
+			<div ng-switch-when="textarea">
+				<textarea class="input" ng-model="form.fields.data[field].value"></textarea>
+			</div>
+			<div ng-switch-when="input">
+				<input class="input" list="datalist_{{field}}" type="{{form.fields.data[field].detail}}" ng-model="form.fields.data[field].value"/>
+				<datalist id="datalist_{{field}}" ng-show="form.fields.data[field].datalist">
+					<option value="{{data.label}}" ng-repeat="data in form.fields.data[field].datalist"/>
+				</datalist>
+			</div>
+			<div class="feedback" ng-show="form.fields.data[field].hasError()==true">
+				<div class="feed" ng-class="" ng-show="form.fields.data[field].hasError(key)==true" ng-repeat="(key, error) in form.validator">
+					{{error.avert}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="submit">
+		<div class="btn" ng-click="form.checkout()">Envoyer</div>
+		<div class="feedback">
+			<div class="loading" ng-show="form.feedback.status=='loading'"><img ng-src="{{rootPath}}/img/spinner.gif" alt=""/></div>
+			<div class="error" ng-show="form.feedback.status=='send-error'">Une erreur est survenue lors de l'envoi du formulaire.</div>
+			<div class="success" ng-show="form.feedback.status=='send-success'">Message envoy&eacute; ! Je vous r&eacute;pondrai dans les plus brefs d&eacute;lai.</div>
+			<div class="error" ng-show="false">Formlulaire invalide, merci de remplir les champs obligatoires.</div>
+			<div class="success" ng-show="false">Formulaire valide.</div>
+		</div>
+	</div>
+</div>

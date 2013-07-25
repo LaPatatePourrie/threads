@@ -1,0 +1,31 @@
+<button ng-click="register()">Register</button>
+<button ng-click="signin()">Sign in</button>
+
+<form ng-show="action=='register'">
+	<fields form="register"></fields>
+</form>
+<form ng-show="action=='signin'">
+	<fields form="signin"></fields>
+</form>
+
+<br/>
+<br/>
+
+<table class="table">
+	<tr>
+		<th ng-click="sortBy(users, 'id')">Id</th>
+		<th ng-click="sortBy(users, 'login')">Login</th>
+		<th ng-click="sortBy(users, 'name')">Nom</th>
+		<th></th>
+	</tr>
+	<tr ng-repeat="user in users.models">
+		<td>{{user.get('id')}}</td>
+		<td>
+			<a href="#/users/{{user.get('id')}}">{{user.get('login')}}</a>
+		</td>
+		<td>
+			<a href="#/users/{{user.get('id')}}">{{user.get('fullname')}}</a>
+		</td>
+		<td><button ng-click="deleteUser(user.get('id'))">Delete</button></th>
+	</tr>
+</table>
