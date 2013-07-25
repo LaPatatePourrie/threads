@@ -1,0 +1,29 @@
+<button ng-click="postThread()">Post a thread</button>
+
+<fields form="thread" ng-show="action=='postingThread'"></fields>
+
+<br/>
+<br/>
+
+<table class="table">
+	<tr>
+		<th ng-click="sortBy(threads, 'id')">Id</th>
+		<th ng-click="sortBy(threads, 'idAuthor')">Auteur</th>
+		<th ng-click="sortBy(threads, 'title')">Titre</th>
+		<th ng-click="sortBy(threads, 'date')">Date</th>
+		<th ng-click="sortBy(threads, 'messageCount')">Nombre de message</th>
+		<th>Dernier message</th>
+		<th></th>
+	</tr>
+	<tr ng-repeat="thread in threads.models">
+		<td>{{thread.get('id')}}</td>
+		<td>{{thread.get('author').get('login')}}</td>
+		<td>
+			<a href="#/threads/{{thread.get('id')}}">{{thread.get('title')}}</a>
+		</td>
+		<td>{{thread.get('date')}}</td>
+		<td>{{thread.get('messageCount')}}</td>
+		<td>{{thread.get('lastAuthor').get('login')}}</td>
+		<td><button ng-click="deleteThread(thread.get('id'))">Delete</button></td>
+	</tr>
+</table>

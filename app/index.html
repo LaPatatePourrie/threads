@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en" ng-app>
+	<head>
+		<title>Angular-RequireJS sample app</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script data-main="src/js/boot-main" src="src/js/lib/require/require.js"></script>
+		<link rel="stylesheet" type="text/css" media="all" href="src/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="src/css/app.css" />
+	</head>
+	<body >
+		<h1>AngularJS + RequireJS</h1>
+		<ul class="menu">
+			<li><a href="#/threads">Threads</a></li>
+			<li><a href="#/users">Auteurs</a></li>
+		</ul>
+		<div ng-view></div>
+	</body>
+</html>

@@ -1,0 +1,11 @@
+<h3>{{user.get('name')}}</h3>
+
+<h4>Threads</h4>
+<div ng-repeat="thread in threads.models">
+	<a href="#/threads/{{thread.get('id')}}">{{thread.get('title')}}</a>
+</div>
+
+<h4>Messages</h4>
+<div ng-repeat="message in messages.models">
+	{{message.get('content')}}
+</div>

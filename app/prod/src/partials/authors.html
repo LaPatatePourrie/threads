@@ -1,0 +1,25 @@
+<button ng-click="postAuthor()">Add</button>
+
+<fields form="author" ng-show="action=='postingAuthor'"></fields>
+
+<br/>
+<br/>
+
+<table class="table">
+	<tr>
+		<th ng-click="sortBy(authors, 'id')">Id</th>
+		<th ng-click="sortBy(authors, 'login')">Login</th>
+		<th ng-click="sortBy(authors, 'name')">Nom</th>
+		<th></th>
+	</tr>
+	<tr ng-repeat="author in authors.models">
+		<td>{{author.get('id')}}</td>
+		<td>
+			<a href="#/authors/{{author.get('id')}}">{{author.get('login')}}</a>
+		</td>
+		<td>
+			<a href="#/authors/{{author.get('id')}}">{{author.get('name')}}</a>
+		</td>
+		<td><button ng-click="deleteAuthor(author.get('id'))">Delete</button></th>
+	</tr>
+</table>
